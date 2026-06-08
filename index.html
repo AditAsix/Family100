@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAMILY 100 — Survey Berkata!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFD700;--gold2:#FFA500;--red:#E63946;--dark:#0a0a0f;--card:#12121a;--card2:#1a1a28;--accent:#00F5FF;--green:#06D6A0;--text:#f0f0ff;--muted:#888aaa;--purple:#7c3aed;--purple2:#4e44ce;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0a3a 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 100%,#0a1a3a 0%,transparent 50%);}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(1px 1px at 10% 20%,rgba(255,215,0,.4) 0%,transparent 100%),radial-gradient(1px 1px at 30% 70%,rgba(0,245,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 60% 15%,rgba(255,255,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 80% 55%,rgba(255,215,0,.3) 0%,transparent 100%),radial-gradient(1px 1px at 50% 85%,rgba(0,245,255,.2) 0%,transparent 100%);}
+.container{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:16px 14px 60px;}
+.header{text-align:center;padding:20px 0 10px;}
+.logo-badge{display:inline-block;background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:8px;}
+.logo-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,80px);letter-spacing:6px;line-height:1;background:linear-gradient(180deg,#FFD700 0%,#FFA500 60%,#FF6B00 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 30px rgba(255,165,0,.4));}
+.logo-sub{font-size:12px;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-top:3px;}
+.screen{display:none;animation:fadeIn .35s ease;}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* MODE */
+.mode-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,5vw,32px);letter-spacing:3px;color:var(--gold);text-align:center;margin:16px 0 6px;}
+.mode-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:18px;}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.mode-grid{grid-template-columns:1fr;}}
+.mode-card{border-radius:20px;padding:22px 18px;cursor:pointer;border:2px solid transparent;transition:all .25s;text-align:center;}
+.mode-card:hover{transform:translateY(-4px);}
+.mode-card.easy{background:linear-gradient(135deg,#0d2b1a,#0a3a1a);border-color:var(--green);box-shadow:0 6px 28px rgba(6,214,160,.18);}
+.mode-card.normal{background:linear-gradient(135deg,#1a1030,#0d1535);border-color:var(--gold2);box-shadow:0 6px 28px rgba(255,165,0,.18);}
+.mode-card.hard{background:linear-gradient(135deg,#2a0a0a,#3a0d0d);border-color:var(--red);box-shadow:0 6px 28px rgba(230,57,70,.18);}
+.mode-card.multi{background:linear-gradient(135deg,#0d0a2a,#150d3a);border-color:var(--purple);box-shadow:0 6px 28px rgba(124,58,237,.25);}
+.mode-icon{font-size:40px;margin-bottom:8px;}
+.mode-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin-bottom:6px;}
+.mode-card.easy .mode-name{color:var(--green);}
+.mode-card.normal .mode-name{color:var(--gold);}
+.mode-card.hard .mode-name{color:var(--red);}
+.mode-card.multi .mode-name{color:#a78bfa;}
+.mode-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.mode-tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;letter-spacing:1px;padding:3px 12px;border-radius:99px;}
+.mode-card.easy .mode-tag{background:rgba(6,214,160,.15);color:var(--green);}
+.mode-card.normal .mode-tag{background:rgba(255,165,0,.12);color:var(--gold2);}
+.mode-card.hard .mode-tag{background:rgba(230,57,70,.12);color:var(--red);}
+.mode-card.multi .mode-tag{background:rgba(124,58,237,.15);color:#a78bfa;}
+/* BADGE */
+.mode-badge-bar{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 0 10px;}
+.active-mode-badge{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 14px;font-size:12px;font-weight:800;letter-spacing:1px;}
+.active-mode-badge.easy{background:rgba(6,214,160,.12);color:var(--green);border:1px solid rgba(6,214,160,.3);}
+.active-mode-badge.normal{background:rgba(255,165,0,.1);color:var(--gold2);border:1px solid rgba(255,165,0,.3);}
+.active-mode-badge.hard{background:rgba(230,57,70,.1);color:var(--red);border:1px solid rgba(230,57,70,.3);}
+.active-mode-badge.multi{background:rgba(124,58,237,.15);color:#a78bfa;border:1px solid rgba(124,58,237,.3);}
+.btn-change-mode{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s;}
+.btn-change-mode:hover{color:white;background:rgba(255,255,255,.1);}
+/* SCOREBOARD */
+.scoreboard{display:flex;gap:9px;margin:12px 0;justify-content:center;flex-wrap:wrap;}
+.score-box{background:var(--card);border:1px solid rgba(255,215,0,.14);border-radius:15px;padding:11px 16px;text-align:center;min-width:80px;position:relative;overflow:hidden;}
+.score-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,215,0,.04),transparent);}
+.score-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.score-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold);line-height:1.1;}
+.score-val.red{color:var(--red);}.score-val.cyan{color:var(--accent);}.score-val.green{color:var(--green);}
+/* TIMER */
+.timer-wrap{text-align:center;margin:6px 0;}
+.timer-display{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--red);border-radius:14px;padding:8px 20px;box-shadow:0 0 18px rgba(230,57,70,.2);}
+.timer-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);line-height:1;min-width:70px;text-align:center;}
+.timer-val.urgent{animation:tpulse .5s ease infinite;color:#ff2244;}
+@keyframes tpulse{0%,100%{opacity:1}50%{opacity:.3}}
+.timer-label{font-size:10px;color:var(--muted);letter-spacing:2px;}
+/* WRONG */
+.wrong-marks{display:flex;justify-content:center;gap:8px;margin:5px 0;}
+.x-mark{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:24px;border:2px solid rgba(255,255,255,.1);color:transparent;transition:all .3s;}
+.x-mark.active{background:var(--red);border-color:var(--red);color:white;box-shadow:0 0 16px rgba(230,57,70,.6);animation:xPop .3s ease;}
+@keyframes xPop{0%{transform:scale(0) rotate(-20deg)}80%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1)}}
+/* PROGRESS */
+.progress-bar-wrap{background:rgba(255,255,255,.06);border-radius:99px;height:4px;margin:8px 0;overflow:hidden;}
+.progress-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .5s ease;}
+/* QUESTION */
+.question-wrap{background:linear-gradient(135deg,#1a1030,#0d1535);border:1px solid rgba(255,215,0,.2);border-radius:22px;padding:20px 22px;margin:12px 0;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5);}
+.question-wrap::after{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,215,0,.05),transparent 70%);pointer-events:none;}
+.q-number{font-size:11px;letter-spacing:3px;color:var(--gold2);text-transform:uppercase;margin-bottom:6px;}
+.q-text{font-size:clamp(14px,3.5vw,20px);font-weight:800;line-height:1.4;color:white;}
+.q-meta{margin-top:8px;}
+.hint-chip{display:inline-block;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.2);border-radius:99px;padding:3px 12px;font-size:12px;color:var(--accent);}
+/* ANSWER BOARD */
+.answer-board{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;}
+.answer-slot{background:var(--card2);border:1.5px solid rgba(255,255,255,.08);border-radius:13px;padding:12px 13px;display:flex;align-items:center;gap:10px;transition:all .4s;}
+.answer-slot.revealed{background:linear-gradient(135deg,#0d2d1a,#0a3a1a);border-color:var(--green);box-shadow:0 0 16px rgba(6,214,160,.2);animation:slotReveal .5s ease;}
+.answer-slot.missed{background:linear-gradient(135deg,#2a0a0a,#1a0505);border-color:rgba(230,57,70,.4);animation:slotReveal .5s ease;}
+@keyframes slotReveal{0%{transform:scale(.95);opacity:.5}100%{transform:scale(1);opacity:1}}
+.slot-num{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted);flex-shrink:0;}
+.answer-slot.revealed .slot-num{background:var(--green);border-color:var(--green);color:#000;}
+.answer-slot.missed .slot-num{background:rgba(230,57,70,.3);border-color:var(--red);color:var(--red);}
+.slot-content{flex:1;}
+.slot-answer{font-size:clamp(11px,2.5vw,14px);font-weight:700;color:white;}
+.slot-answer.missed-text{color:rgba(255,100,100,.7);text-decoration:line-through;font-size:11px;}
+.slot-hidden-text{color:var(--muted);font-size:12px;}
+.slot-points{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);opacity:0;transition:opacity .3s;flex-shrink:0;}
+.answer-slot.revealed .slot-points{opacity:1;}
+.slot-points.missed-pts{color:var(--red);opacity:1;}
+/* INPUT */
+.input-wrap{display:flex;gap:8px;margin:12px 0;}
+.answer-input{flex:1;background:var(--card2);border:2px solid rgba(255,255,255,.12);border-radius:13px;padding:12px 15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:white;outline:none;transition:border-color .3s;}
+.answer-input:focus{border-color:var(--gold2);}
+.answer-input::placeholder{color:var(--muted);font-weight:600;}
+.answer-input:disabled{opacity:.5;cursor:not-allowed;}
+.btn-send{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:13px;padding:12px 18px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:#000;transition:all .2s;white-space:nowrap;box-shadow:0 4px 18px rgba(255,165,0,.3);}
+.btn-send:hover{transform:translateY(-2px);}
+.btn-send:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0;}
+.btn{padding:10px 18px;border-radius:11px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;transition:all .2s;letter-spacing:.5px;}
+.btn-next{background:linear-gradient(135deg,var(--purple2),var(--purple));color:white;box-shadow:0 4px 18px rgba(124,58,237,.3);flex:1;max-width:210px;}
+.btn-next:hover{transform:translateY(-2px);}
+.btn-reveal{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--muted);}
+.btn-reveal:hover{background:rgba(255,255,255,.1);color:white;}
+/* SOLO RESULT */
+.result-screen{text-align:center;padding:36px 20px;}
+.result-title-solo{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,8vw,60px);background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+.result-score{font-family:'Bebas Neue',sans-serif;font-size:78px;color:var(--gold);line-height:1;}
+.result-sub{color:var(--muted);font-size:13px;margin:6px 0 24px;}
+.result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-restart{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:14px;padding:14px 32px;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;color:#000;cursor:pointer;box-shadow:0 6px 28px rgba(255,165,0,.4);transition:all .2s;}
+.btn-restart:hover{transform:translateY(-3px);}
+.btn-menu2{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 22px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:white;cursor:pointer;transition:all .2s;}
+.btn-menu2:hover{background:rgba(255,255,255,.12);}
+/* LOADING */
+.loading-wrap{text-align:center;padding:50px 20px;}
+.spinner{width:52px;height:52px;border:4px solid rgba(255,215,0,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{color:var(--muted);font-size:14px;animation:pulse2 1.5s ease infinite;}
+@keyframes pulse2{0%,100%{opacity:.5}50%{opacity:1}}
+/* TOAST */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-120px);background:var(--card);border-radius:14px;padding:12px 24px;font-size:14px;font-weight:800;z-index:9999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);text-align:center;border:2px solid transparent;white-space:nowrap;max-width:92vw;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.correct{border-color:var(--green);color:var(--green);background:rgba(6,214,160,.1);}
+.toast.wrong{border-color:var(--red);color:var(--red);background:rgba(230,57,70,.1);}
+.toast.info{border-color:var(--accent);color:var(--accent);}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.12),transparent);margin:10px 0;}
+/* MP LOBBY */
+.lobby-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,5vw,30px);letter-spacing:3px;color:var(--gold);text-align:center;margin:16px 0 4px;}
+.lobby-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:18px;}
+.form-card{background:var(--card);border:1px solid rgba(124,58,237,.2);border-radius:20px;padding:22px 18px;margin-bottom:12px;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,.04),transparent);pointer-events:none;}
+.form-label{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:7px;display:block;}
+.form-input{width:100%;background:var(--card2);border:2px solid rgba(255,255,255,.1);border-radius:13px;padding:12px 15px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:white;outline:none;transition:border-color .3s;margin-bottom:10px;}
+.form-input:focus{border-color:var(--purple);}
+.form-input::placeholder{color:var(--muted);font-weight:600;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-create{flex:1;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:13px;padding:13px 18px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:#000;cursor:pointer;transition:all .2s;box-shadow:0 4px 18px rgba(255,165,0,.3);}
+.btn-create:hover{transform:translateY(-2px);}
+.btn-create:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-join-mp{flex:1;background:linear-gradient(135deg,var(--purple2),var(--purple));border:none;border-radius:13px;padding:13px 18px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:white;cursor:pointer;transition:all .2s;box-shadow:0 4px 18px rgba(124,58,237,.3);}
+.btn-join-mp:hover{transform:translateY(-2px);}
+.btn-join-mp:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.divider-or{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:2px;}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+/* WAITING */
+.waiting-box{background:var(--card);border:1px solid rgba(124,58,237,.3);border-radius:20px;padding:26px 18px;text-align:center;margin:14px 0;}
+.room-code-display{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,10vw,68px);letter-spacing:10px;color:var(--gold);line-height:1;margin:8px 0;}
+.room-code-label{font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.copy-btn{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);border-radius:10px;padding:7px 16px;font-size:13px;font-weight:800;color:var(--gold);cursor:pointer;margin-top:8px;transition:all .2s;}
+.copy-btn:hover{background:rgba(255,215,0,.2);}
+.waiting-dots{display:flex;justify-content:center;gap:6px;margin:14px 0;}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--purple);animation:dotB 1.2s ease infinite;}
+.dot:nth-child(2){animation-delay:.2s;}.dot:nth-child(3){animation-delay:.4s;}
+@keyframes dotB{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-8px);opacity:1}}
+.waiting-text{color:var(--muted);font-size:13px;}
+.players-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.player-card{background:var(--card2);border:2px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 12px;text-align:center;transition:all .3s;}
+.player-card.me-card{border-color:rgba(255,215,0,.35);background:linear-gradient(135deg,rgba(255,215,0,.06),transparent);}
+.player-card.empty-card{opacity:.4;border-style:dashed;}
+.player-avatar{font-size:32px;margin-bottom:5px;}
+.player-name-w{font-weight:800;font-size:14px;color:white;margin-bottom:2px;}
+.player-role{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.status-pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:4px 12px;font-size:11px;font-weight:800;letter-spacing:1px;margin-top:7px;}
+.status-pill.online{background:rgba(6,214,160,.12);color:var(--green);border:1px solid rgba(6,214,160,.3);}
+.status-pill.waiting-p{background:rgba(255,165,0,.1);color:var(--gold2);border:1px solid rgba(255,165,0,.3);}
+.live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 1s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* MP SCOREBAR */
+.scorebar{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:10px 0;}
+.sb-player{background:var(--card);border-radius:14px;padding:9px 12px;text-align:center;}
+.sb-player.me-sb{border:1.5px solid rgba(255,215,0,.25);}
+.sb-player.op-sb{border:1.5px solid rgba(124,58,237,.25);}
+.sb-name{font-size:11px;color:var(--muted);letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-score{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.sb-player.me-sb .sb-score{color:var(--gold);}
+.sb-player.op-sb .sb-score{color:#a78bfa;}
+.sb-mid{text-align:center;}
+.sb-qnum{font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--muted);letter-spacing:1px;}
+.sb-vs{font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(255,255,255,.15);}
+.turn-bar{background:var(--card);border-radius:11px;padding:9px 14px;margin:7px 0;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.06);}
+.turn-label{font-size:11px;color:var(--muted);letter-spacing:1px;}
+.turn-name{font-weight:800;font-size:13px;}
+.turn-name.my-turn{color:var(--gold);}.turn-name.their-turn{color:#a78bfa;}
+.blocked-overlay{position:absolute;inset:0;background:rgba(10,10,15,.75);border-radius:13px;display:flex;align-items:center;justify-content:center;z-index:5;backdrop-filter:blur(2px);font-size:12px;font-weight:800;color:var(--muted);letter-spacing:1px;}
+.op-status{text-align:center;font-size:12px;color:var(--muted);margin:3px 0;min-height:16px;}
+/* MP RESULT */
+.result-wrap{text-align:center;padding:16px 0;}
+.winner-crown{font-size:60px;margin-bottom:4px;animation:crownB 1s ease infinite;}
+@keyframes crownB{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.mp-result-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,52px);background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.result-cards-mp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+.result-card{border-radius:16px;padding:16px 12px;text-align:center;}
+.result-card.winner{background:linear-gradient(135deg,#1a1a00,#2a2000);border:2px solid var(--gold);box-shadow:0 0 28px rgba(255,215,0,.2);}
+.result-card.loser{background:var(--card2);border:2px solid rgba(255,255,255,.08);}
+.result-card.draw{background:linear-gradient(135deg,#0a1a2a,#0d1535);border:2px solid var(--accent);}
+.rc-crown{font-size:26px;margin-bottom:4px;}.rc-name{font-weight:800;font-size:13px;color:white;margin-bottom:3px;}
+.rc-score{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;}
+.result-card.winner .rc-score{color:var(--gold);}.result-card.loser .rc-score{color:var(--muted);}.result-card.draw .rc-score{color:var(--accent);}
+.rc-label{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="container">
+<div class="header">
+  <div class="logo-badge">🎙️ SURVEY BERKATA</div>
+  <div class="logo-title">FAMILY<br>100</div>
+  <div class="logo-sub">Powered by AI — Ribuan Pertanyaan Seru!</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- MODE SELECT -->
+<div class="screen active" id="screenMode">
+  <div class="mode-title">⚙️ PILIH MODE</div>
+  <div class="mode-sub">4 mode tersedia — dari santai sampai duel online!</div>
+  <div class="mode-grid">
+    <div class="mode-card easy" onclick="startSolo('easy')">
+      <div class="mode-icon">🟢</div><div class="mode-name">MUDAH</div>
+      <div class="mode-desc">Ada tombol "Lihat Semua". Tidak ada batas waktu.</div>
+      <div class="mode-tag">✅ Reveal · ⏳ Bebas</div>
+    </div>
+    <div class="mode-card normal" onclick="startSolo('normal')">
+      <div class="mode-icon">🟡</div><div class="mode-name">NORMAL</div>
+      <div class="mode-desc">Tanpa tombol reveal. Tidak ada batas waktu.</div>
+      <div class="mode-tag">🚫 No Reveal · ⏳ Bebas</div>
+    </div>
+    <div class="mode-card hard" onclick="startSolo('hard')">
+      <div class="mode-icon">🔴</div><div class="mode-name">SUSAH</div>
+      <div class="mode-desc">Tanpa reveal. Batas waktu 30 menit. Sisa hangus!</div>
+      <div class="mode-tag">🚫 No Reveal · ⏰ 30 Menit</div>
+    </div>
+    <div class="mode-card multi" onclick="goMultiplayer()">
+      <div class="mode-icon">⚡</div><div class="mode-name">MULTIPLAYER</div>
+      <div class="mode-desc">Duel 1vs1 online! Buat atau gabung room pakai kode.</div>
+      <div class="mode-tag">🌐 Online · 2 Pemain</div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLO LOADING -->
+<div class="screen" id="screenSoloLoad">
+  <div class="loading-wrap"><div class="spinner"></div><div class="loading-text" id="soloLoadText">Menyiapkan pertanyaan...</div></div>
+</div>
+
+<!-- SOLO GAME -->
+<div class="screen" id="screenSolo">
+  <div class="mode-badge-bar">
+    <span class="active-mode-badge easy" id="soloBadge">🟢 MUDAH</span>
+    <button class="btn-change-mode" onclick="backToMenu()">↩ Ganti Mode</button>
+  </div>
+  <div class="scoreboard">
+    <div class="score-box"><div class="score-label">Soal</div><div class="score-val cyan" id="sQNum">1</div></div>
+    <div class="score-box"><div class="score-label">Poin Soal</div><div class="score-val green" id="sQScore">0</div></div>
+    <div class="score-box"><div class="score-label">Total</div><div class="score-val" id="sTotal">0</div></div>
+    <div class="score-box"><div class="score-label">Salah</div><div class="score-val red" id="sWrong">0</div></div>
+  </div>
+  <div class="wrong-marks"><div class="x-mark" id="sx1">✗</div><div class="x-mark" id="sx2">✗</div><div class="x-mark" id="sx3">✗</div></div>
+  <div class="timer-wrap" id="soloTimerWrap" style="display:none">
+    <div class="timer-display"><span style="font-size:18px">⏰</span><div><div class="timer-val" id="soloTimerVal">30:00</div><div class="timer-label">SISA WAKTU</div></div></div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="soloProgress" style="width:0%"></div></div>
+  <div class="question-wrap">
+    <div class="q-number" id="soloQNum">Pertanyaan #1 dari 10</div>
+    <div class="q-text" id="soloQText">Memuat...</div>
+    <div class="q-meta" id="soloQMeta"></div>
+  </div>
+  <div class="answer-board" id="soloBoard"></div>
+  <div class="divider"></div>
+  <div class="input-wrap">
+    <input type="text" class="answer-input" id="soloInput" placeholder="Ketik jawaban kamu..." autocomplete="off" autocorrect="off">
+    <button class="btn-send" id="soloSend">JAWAB</button>
+  </div>
+  <div class="controls">
+    <button class="btn btn-reveal" id="soloReveal" style="display:none">👁 Lihat Semua</button>
+    <button class="btn btn-next" id="soloNext">Soal Berikutnya ➤</button>
+  </div>
+</div>
+
+<!-- SOLO RESULT -->
+<div class="screen" id="screenSoloResult">
+  <div class="result-screen">
+    <div class="result-title-solo">🏆 RONDE SELESAI!</div>
+    <div class="result-score" id="soloFinalScore">0</div>
+    <div class="result-sub" id="soloFinalSub">10 soal selesai</div>
+    <div class="result-btns">
+      <button class="btn-restart" id="soloPlayAgain">🔄 MAIN LAGI</button>
+      <button class="btn-menu2" id="soloGoMenu">🏠 MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- MP LOBBY -->
+<div class="screen" id="screenMPLobby">
+  <div class="mode-badge-bar">
+    <span class="active-mode-badge multi">⚡ MULTIPLAYER</span>
+    <button class="btn-change-mode" onclick="backToMenu()">↩ Kembali</button>
+  </div>
+  <div class="lobby-title">🎮 MASUK KE ARENA</div>
+  <div class="lobby-sub">Duel 1vs1 online — Poin terbanyak menang!</div>
+  <div class="form-card">
+    <label class="form-label">Nama Pemain Kamu</label>
+    <input type="text" class="form-input" id="mpName" placeholder="Masukkan namamu..." maxlength="16" autocomplete="off">
+    <div class="btn-row"><button class="btn-create" id="mpCreateBtn">🏠 BUAT ROOM</button></div>
+    <div class="divider-or">ATAU GABUNG ROOM</div>
+    <label class="form-label">Kode Room (5 huruf/angka)</label>
+    <input type="text" class="form-input" id="mpCodeInput" placeholder="Contoh: AB3XY" maxlength="5" style="text-transform:uppercase;letter-spacing:6px;font-size:22px;text-align:center;" autocomplete="off">
+    <div class="btn-row"><button class="btn-join-mp" id="mpJoinBtn">🚪 GABUNG ROOM</button></div>
+    <div id="mpErrMsg" style="margin-top:10px;font-size:12px;color:var(--red);text-align:center;min-height:18px;"></div>
+  </div>
+</div>
+
+<!-- MP WAITING -->
+<div class="screen" id="screenMPWait">
+  <div class="mode-badge-bar">
+    <span class="active-mode-badge multi">⚡ MULTIPLAYER</span>
+    <button class="btn-change-mode" onclick="cancelAndLeave()">✕ Batalkan</button>
+  </div>
+  <div class="lobby-title">⏳ MENUNGGU LAWAN</div>
+  <div class="waiting-box">
+    <div class="room-code-label">KODE ROOM KAMU</div>
+    <div class="room-code-display" id="mpDisplayCode">-----</div>
+    <button class="copy-btn" id="mpCopyBtn">📋 Salin Kode</button>
+    <div class="waiting-dots" style="margin-top:18px"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="waiting-text">Bagikan kode ini ke temanmu!</div>
+  </div>
+  <div class="players-panel">
+    <div class="player-card me-card">
+      <div class="player-avatar">👤</div>
+      <div class="player-name-w" id="mpWaitName1">Kamu</div>
+      <div class="player-role">PEMAIN 1 · HOST</div>
+      <div><span class="status-pill online"><span class="live-dot"></span> SIAP</span></div>
+    </div>
+    <div class="player-card empty-card" id="mpWaitCard2">
+      <div class="player-avatar">❓</div>
+      <div class="player-name-w">Menunggu...</div>
+      <div class="player-role">PEMAIN 2</div>
+      <div><span class="status-pill waiting-p"><span class="live-dot"></span> BELUM JOIN</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MP LOADING -->
+<div class="screen" id="screenMPLoad">
+  <div class="loading-wrap"><div class="spinner"></div><div class="loading-text" id="mpLoadText">Menyiapkan pertanyaan...</div></div>
+</div>
+
+<!-- MP GAME -->
+<div class="screen" id="screenMPGame">
+  <div class="mode-badge-bar"><span class="active-mode-badge multi">⚡ MULTIPLAYER LIVE</span></div>
+  <div class="scorebar">
+    <div class="sb-player me-sb"><div class="sb-name" id="mpSbName1">Kamu</div><div class="sb-score" id="mpSbScore1">0</div></div>
+    <div class="sb-mid"><div class="sb-qnum" id="mpSbQ">SOAL 1/10</div><div class="sb-vs">VS</div></div>
+    <div class="sb-player op-sb"><div class="sb-name" id="mpSbName2">Lawan</div><div class="sb-score" id="mpSbScore2">0</div></div>
+  </div>
+  <div class="turn-bar">
+    <span class="turn-label">GILIRAN:</span>
+    <span class="turn-name my-turn" id="mpTurnName">-</span>
+    <span class="status-pill online" style="margin:0;font-size:10px"><span class="live-dot"></span> LIVE</span>
+  </div>
+  <div class="timer-wrap">
+    <div class="timer-display"><span style="font-size:18px">⏰</span><div><div class="timer-val" id="mpTimerVal">30:00</div><div class="timer-label">SISA WAKTU</div></div></div>
+  </div>
+  <div class="wrong-marks"><div class="x-mark" id="mx1">✗</div><div class="x-mark" id="mx2">✗</div><div class="x-mark" id="mx3">✗</div></div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="mpProgress" style="width:0%"></div></div>
+  <div class="question-wrap">
+    <div class="q-number" id="mpQNum">Pertanyaan #1 dari 10</div>
+    <div class="q-text" id="mpQText">Memuat...</div>
+    <div class="q-meta" id="mpQMeta"></div>
+  </div>
+  <div class="answer-board" id="mpBoard"></div>
+  <div class="divider"></div>
+  <div style="position:relative">
+    <div class="input-wrap">
+      <input type="text" class="answer-input" id="mpInput" placeholder="Ketik jawaban..." autocomplete="off" autocorrect="off">
+      <button class="btn-send" id="mpSend">JAWAB</button>
+    </div>
+    <div class="blocked-overlay" id="mpBlocked" style="display:none">⏳ GILIRAN LAWAN</div>
+  </div>
+  <div class="op-status" id="mpOpStatus"></div>
+  <div class="controls"><button class="btn btn-next" id="mpNext" style="display:none">Soal Berikutnya ➤</button></div>
+</div>
+
+<!-- MP RESULT -->
+<div class="screen" id="screenMPResult">
+  <div class="result-wrap">
+    <div class="winner-crown" id="mpResultCrown">🏆</div>
+    <div class="mp-result-title" id="mpResultTitle">SELESAI!</div>
+    <div class="result-cards-mp" id="mpResultCards"></div>
+    <div class="result-btns" style="margin-top:18px">
+      <button class="btn-restart" id="mpPlayAgain">🔄 MAIN LAGI</button>
+      <button class="btn-menu2" id="mpGoMenu">🏠 MENU</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+
+// ============================================================
+//  SUPABASE CONFIG
+// ============================================================
+const SB_URL = 'https://mkqdmxvelinpoydhavqc.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rcWRteHZlbGlucG95ZGhhdnFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4MzQ0MjIsImV4cCI6MjA5NjQxMDQyMn0.ba6W9yC8A_r8bGivuxLh-DEIFqirP1h6zDk-bVvH7co';
+const SBH = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json' };
+
+async function sbFetch(path, opts={}) {
+  const r = await fetch(SB_URL + '/rest/v1/' + path, { headers: SBH, ...opts });
+  const txt = await r.text();
+  if (!r.ok) throw new Error('SB ' + r.status + ': ' + txt);
+  return txt ? JSON.parse(txt) : null;
+}
+// Ambil satu room by ID exact
+async function sbGet(id) {
+  const clean = id.trim().toUpperCase();
+  const d = await sbFetch('rooms?id=eq.' + encodeURIComponent(clean) + '&select=*');
+  return (d && d.length) ? d[0] : null;
+}
+async function sbGetAll() {
+  return sbFetch('rooms?select=id,status,player1_name,player2_name,player2_id&order=created_at.desc&limit=20');
+}
+async function sbInsert(data) {
+  const d = await sbFetch('rooms', { method:'POST', headers:{...SBH,'Prefer':'return=representation'}, body: JSON.stringify(data) });
+  return d[0];
+}
+async function sbUpdate(id, data) {
+  return sbFetch('rooms?id=eq.' + encodeURIComponent(id.trim().toUpperCase()), { method:'PATCH', headers:{...SBH,'Prefer':'return=representation'}, body: JSON.stringify(data) });
+}
+async function sbDelete(id) {
+  return sbFetch('rooms?id=eq.' + encodeURIComponent(id.trim().toUpperCase()), { method:'DELETE' });
+}
+
+// ============================================================
+//  AUDIO
+// ============================================================
+let _ac=null;
+function ga(){if(!_ac)_ac=new(window.AudioContext||window.webkitAudioContext)();return _ac;}
+function playCorrect(){try{const c=ga(),t=c.currentTime;[523,659,784,1047].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(f,t+i*.1);g.gain.setValueAtTime(0,t+i*.1);g.gain.linearRampToValueAtTime(.3,t+i*.1+.03);g.gain.exponentialRampToValueAtTime(.001,t+i*.1+.3);o.start(t+i*.1);o.stop(t+i*.1+.35);})}catch(e){}}
+function playWrong(){try{const c=ga(),t=c.currentTime;[220,180].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sawtooth';o.frequency.setValueAtTime(f,t+i*.2);g.gain.setValueAtTime(.25,t+i*.2);g.gain.exponentialRampToValueAtTime(.001,t+i*.2+.25);o.start(t+i*.2);o.stop(t+i*.2+.3);})}catch(e){}}
+function playReveal(){try{const c=ga(),t=c.currentTime;const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.setValueAtTime(880,t);o.frequency.linearRampToValueAtTime(1320,t+.3);g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+.5);o.start(t);o.stop(t+.5)}catch(e){}}
+function playLevelUp(){try{const c=ga(),t=c.currentTime;[392,523,659,784,1047,1319].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(f,t+i*.08);g.gain.setValueAtTime(.25,t+i*.08);g.gain.exponentialRampToValueAtTime(.001,t+i*.08+.3);o.start(t+i*.08);o.stop(t+i*.08+.35);})}catch(e){}}
+function playWarn(){try{const c=ga(),t=c.currentTime;const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='square';o.frequency.setValueAtTime(440,t);g.gain.setValueAtTime(.08,t);g.gain.exponentialRampToValueAtTime(.001,t+.12);o.start(t);o.stop(t+.12)}catch(e){}}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+let _toastT=null;
+function showToast(msg,type='info',dur=2400){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show '+type;
+  if(_toastT)clearTimeout(_toastT);
+  _toastT=setTimeout(()=>{t.className='toast';},dur);
+}
+
+// ============================================================
+//  AI QUESTION GENERATOR
+//  PENTING: header anthropic-dangerous-allow-browser wajib ada untuk request dari browser
+// ============================================================
+const CATS=['makanan & minuman Indonesia','profesi & pekerjaan populer','benda di rumah','binatang','olahraga populer','alat transportasi','nama buah-buahan','nama sayuran','kegiatan di akhir pekan','benda di dapur','nama warna','negara di Asia','kota besar di Indonesia','alat musik','benda di kamar tidur','kegiatan anak-anak','nama minuman','barang belanja bulanan','perlengkapan kantor','hobi populer','jenis masakan','barang yang dibawa ke pantai','pelajaran di sekolah','kegiatan di pagi hari','nama jajanan pasar Indonesia'];
+let usedCats=[];
+
+async function generateQuestion(){
+  let avail=CATS.filter(c=>!usedCats.includes(c));
+  if(!avail.length){usedCats=[];avail=[...CATS];}
+  const cat=avail[Math.floor(Math.random()*avail.length)];
+  usedCats.push(cat);
+
+  const prompt=`Kamu adalah host kuis Family 100 Indonesia yang menyenangkan.\nBuat SATU pertanyaan survey Family 100 bertema "${cat}" dengan format JSON:\n{"question":"100 orang ditanya: [pertanyaan]?","hint":"[tema singkat]","answers":[{"text":"jawaban1","points":40},{"text":"jawaban2","points":25},{"text":"jawaban3","points":15},{"text":"jawaban4","points":10},{"text":"jawaban5","points":5},{"text":"jawaban6","points":3},{"text":"jawaban7","points":2}]}\nATURAN: pertanyaan menarik relevan budaya Indonesia, jawaban realistis, total poin=100, urut terbesar ke terkecil, HANYA output JSON tanpa penjelasan.`;
+
+  const r = await fetch('https://ffaxkylidaporwoxjowi.supabase.co/functions/v1/rapid-api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ prompt: prompt })
+  });
+
+  if (!r.ok) {
+    const txt = await r.text();
+    throw new Error('Proxy ' + r.status + ': ' + txt);
+  }
+
+  // Edge function mengembalikan {text: "..."} langsung
+  const d = await r.json();
+  console.log('Edge response:', JSON.stringify(d).substring(0,300));
+
+  // Ambil teks dari berbagai kemungkinan format response
+  let raw = '';
+  if (typeof d.text === 'string') {
+    // Format custom: {text: "..."}
+    raw = d.text;
+  } else if (d.content && Array.isArray(d.content)) {
+    // Format Anthropic native
+    raw = d.content.map(b => b.text || '').join('');
+  } else if (d.error) {
+    throw new Error('AI Error: ' + (d.error.message || JSON.stringify(d.error)));
+  } else {
+    raw = JSON.stringify(d);
+  }
+
+  // Cari JSON di dalam teks
+  const m = raw.match(/\{[\s\S]*\}/);
+  if (!m) throw new Error('Tidak ada JSON di response: ' + raw.substring(0, 300));
+
+  let p;
+  try { p = JSON.parse(m[0]); } catch(e) { throw new Error('JSON parse gagal: ' + m[0].substring(0,200)); }
+
+  if (!p.question) throw new Error('Field question tidak ada. Response: ' + raw.substring(0,300));
+  if (!p.answers || !Array.isArray(p.answers)) throw new Error('Field answers tidak ada atau bukan array');
+
+  return {
+    question: p.question,
+    hint: p.hint || cat,
+    answers: p.answers.map(a=>({ text: String(a.text||''), points: Number(a.points)||5, revealed: false }))
+  };
+}
+
+// Fuzzy match
+function norm(s){return s.toLowerCase().replace(/[^a-z0-9\s]/gi,'').replace(/\s+/g,' ').trim();}
+function checkAns(input, answers){
+  const inp=norm(input); if(!inp)return -1;
+  for(let i=0;i<answers.length;i++){
+    if(answers[i].revealed)continue;
+    const ans=norm(answers[i].text);
+    if(inp===ans||ans.includes(inp)||inp.includes(ans))return i;
+    for(const w of ans.split(' ')){if(w.length>=3&&(inp.includes(w)||(w.includes(inp)&&inp.length>=3)))return i;}
+  }
+  return -1;
+}
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+function backToMenu(){soloStopTimer();mpStopAll();showScreen('screenMode');}
+function goMultiplayer(){showScreen('screenMPLobby');}
+
+// ============================================================
+//  SOLO MODE
+// ============================================================
+let soloMode='easy';
+let soloSt={qNum:0,totalQ:10,qScore:0,totalScore:0,wrong:0,correct:0,q:null,ended:false};
+let soloTInt=null,soloTSec=0;
+
+function startSolo(mode){
+  soloMode=mode; usedCats=[];
+  soloSt={qNum:0,totalQ:10,qScore:0,totalScore:0,wrong:0,correct:0,q:null,ended:false};
+  const badge=document.getElementById('soloBadge');
+  if(mode==='easy'){badge.textContent='🟢 MUDAH';badge.className='active-mode-badge easy';}
+  else if(mode==='normal'){badge.textContent='🟡 NORMAL';badge.className='active-mode-badge normal';}
+  else{badge.textContent='🔴 SUSAH';badge.className='active-mode-badge hard';}
+  // MUDAH: ada reveal. NORMAL & SUSAH: tidak ada
+  document.getElementById('soloReveal').style.display = mode==='easy'?'inline-flex':'none';
+  // SUSAH: ada timer. MUDAH & NORMAL: tidak ada
+  document.getElementById('soloTimerWrap').style.display='none';
+  soloLoadNext();
+}
+
+async function soloLoadNext(){
+  soloStopTimer();
+  soloSt.qNum++; soloSt.qScore=0; soloSt.wrong=0; soloSt.ended=false;
+  showScreen('screenSoloLoad');
+  document.getElementById('soloLoadText').textContent=['Memuat pertanyaan...','AI sedang berpikir...','Menyiapkan soal seru...'][Math.floor(Math.random()*3)];
+  try{
+    soloSt.q=await generateQuestion();
+    document.getElementById('soloQNum').textContent=`Pertanyaan #${soloSt.qNum} dari ${soloSt.totalQ}`;
+    document.getElementById('soloQText').textContent=soloSt.q.question;
+    document.getElementById('soloQMeta').innerHTML=`<span class="hint-chip">💡 Tema: ${soloSt.q.hint}</span>`;
+    soloBuildBoard(); soloUpdateUI(); soloEnableInput();
+    showScreen('screenSolo');
+    document.getElementById('soloInput').focus();
+    if(soloMode==='hard') soloStartTimer();
+  }catch(e){
+    console.error('generateQuestion error:', e);
+    const errMsg = e.message||String(e);
+    document.getElementById('soloLoadText').innerHTML=
+      '⚠️ Gagal: <span style="color:#ff6b6b;font-size:12px">'+errMsg+'</span><br><br>'+
+      '<button onclick="soloLoadNext()" style="background:linear-gradient(135deg,#FFD700,#FFA500);border:none;border-radius:10px;padding:10px 24px;font-family:Bebas Neue,sans-serif;font-size:16px;cursor:pointer;color:#000;margin-top:4px">🔄 COBA LAGI</button>';
+  }
+}
+
+function soloBuildBoard(){
+  const b=document.getElementById('soloBoard'); b.innerHTML='';
+  soloSt.q.answers.forEach((a,i)=>{
+    const s=document.createElement('div');
+    s.className='answer-slot'+(a.revealed?' revealed':'');
+    s.id='ss'+i;
+    s.innerHTML=`<div class="slot-num">${i+1}</div><div class="slot-content">${a.revealed?`<div class="slot-answer">${a.text}</div>`:'<div class="slot-hidden-text">??? ??? ???</div>'}</div><div class="slot-points">${a.points}</div>`;
+    b.appendChild(s);
+  });
+}
+
+function soloRevealSlot(i,missed=false){
+  const a=soloSt.q.answers[i]; const s=document.getElementById('ss'+i); if(!s)return;
+  if(missed){
+    s.classList.add('missed');
+    s.querySelector('.slot-content').innerHTML=`<div class="slot-answer missed-text">${a.text} (hangus)</div>`;
+    const p=s.querySelector('.slot-points'); p.textContent='0'; p.classList.add('missed-pts');
+  }else{
+    a.revealed=true; s.classList.add('revealed');
+    s.querySelector('.slot-content').innerHTML=`<div class="slot-answer">${a.text}</div>`;
+    s.querySelector('.slot-points').style.opacity='1';
+  }
+}
+
+function soloUpdateUI(){
+  document.getElementById('sQNum').textContent=soloSt.qNum;
+  document.getElementById('sQScore').textContent=soloSt.qScore;
+  document.getElementById('sTotal').textContent=soloSt.totalScore;
+  document.getElementById('sWrong').textContent=soloSt.wrong;
+  for(let i=1;i<=3;i++)document.getElementById('sx'+i).classList.toggle('active',i<=soloSt.wrong);
+  document.getElementById('soloProgress').style.width=((soloSt.qNum-1)/soloSt.totalQ*100)+'%';
+}
+function soloEnableInput(){document.getElementById('soloInput').disabled=false;document.getElementById('soloSend').disabled=false;document.getElementById('soloInput').value='';}
+function soloDisableInput(){document.getElementById('soloInput').disabled=true;document.getElementById('soloSend').disabled=true;}
+
+function soloStartTimer(){
+  soloStopTimer(); soloTSec=30*60;
+  document.getElementById('soloTimerWrap').style.display='block';
+  soloUpdateTimer();
+  soloTInt=setInterval(()=>{
+    soloTSec--; soloUpdateTimer();
+    if(soloTSec<=60&&soloTSec%10===0)playWarn();
+    if(soloTSec<=0){soloStopTimer();soloTimerExpired();}
+  },1000);
+}
+function soloStopTimer(){if(soloTInt){clearInterval(soloTInt);soloTInt=null;}}
+function soloUpdateTimer(){
+  const m=Math.floor(soloTSec/60),s=soloTSec%60;
+  const el=document.getElementById('soloTimerVal');
+  el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  el.className='timer-val'+(soloTSec<=60?' urgent':'');
+}
+function soloTimerExpired(){
+  soloSt.ended=true; soloDisableInput(); playWrong();
+  showToast('⏰ Waktu Habis! Sisa jawaban hangus!','wrong',3500);
+  soloSt.q.answers.forEach((a,i)=>{if(!a.revealed)setTimeout(()=>soloRevealSlot(i,true),i*150);});
+}
+
+function soloHandleAnswer(){
+  if(soloSt.ended)return;
+  const inp=document.getElementById('soloInput').value.trim(); if(!inp)return;
+  document.getElementById('soloInput').value='';
+  const idx=checkAns(inp,soloSt.q.answers);
+  if(idx!==-1){
+    const pts=soloSt.q.answers[idx].points;
+    soloSt.qScore+=pts; soloSt.totalScore+=pts; soloSt.correct++;
+    soloRevealSlot(idx); playCorrect();
+    showToast(['🎉 BENAR! +'+pts+' poin','✅ Tepat! +'+pts+' poin','🔥 Keren! +'+pts+' poin','⭐ Survey setuju! +'+pts+' poin'][Math.floor(Math.random()*4)],'correct');
+    soloUpdateUI();
+    if(soloSt.q.answers.every(a=>a.revealed)){soloStopTimer();soloSt.ended=true;soloDisableInput();playLevelUp();setTimeout(()=>showToast('🏆 Semua terbuka! Mantap!','correct',2500),400);}
+  }else{
+    soloSt.wrong++; playWrong(); soloUpdateUI();
+    showToast(['❌ Bukan itu!','🚫 Survei tidak setuju!','❌ Salah!','🔴 Coba lagi...'][Math.floor(Math.random()*4)],'wrong');
+    if(soloSt.wrong>=3){soloStopTimer();soloSt.ended=true;soloDisableInput();showToast('💀 3 Kesalahan! Soal berakhir!','wrong',3000);setTimeout(()=>soloSt.q.answers.forEach((a,i)=>{if(!a.revealed)setTimeout(()=>soloRevealSlot(i),i*150);}),500);}
+  }
+}
+
+function soloShowResult(){
+  soloStopTimer();
+  document.getElementById('soloFinalScore').textContent=soloSt.totalScore;
+  document.getElementById('soloFinalSub').textContent=`${soloSt.correct} jawaban benar · Mode ${soloMode.toUpperCase()} · 10 soal`;
+  document.getElementById('soloProgress').style.width='100%';
+  showScreen('screenSoloResult'); playLevelUp();
+}
+
+document.getElementById('soloSend').addEventListener('click',soloHandleAnswer);
+document.getElementById('soloInput').addEventListener('keydown',e=>{if(e.key==='Enter')soloHandleAnswer();});
+document.getElementById('soloNext').addEventListener('click',()=>{if(soloSt.qNum>=soloSt.totalQ)soloShowResult();else soloLoadNext();});
+document.getElementById('soloReveal').addEventListener('click',()=>{
+  if(!soloSt.q)return;
+  soloStopTimer(); soloSt.ended=true; soloDisableInput();
+  soloSt.q.answers.forEach((a,i)=>{setTimeout(()=>{if(!a.revealed){soloRevealSlot(i);playReveal();}},i*120);});
+  showToast('👁️ Semua jawaban terungkap!','info');
+});
+document.getElementById('soloPlayAgain').addEventListener('click',()=>startSolo(soloMode));
+document.getElementById('soloGoMenu').addEventListener('click',()=>{soloStopTimer();showScreen('screenMode');});
+
+// ============================================================
+//  MULTIPLAYER
+// ============================================================
+let myId='p_'+Math.random().toString(36).substr(2,9);
+let mpMyName='',mpRoomId='',mpIsHost=false,mpMySlot='',mpOpSlot='';
+let mpPollInt=null,mpTimerInt=null,mpTimerSec=0;
+let mpLastRoom=null,mpQEnded=false,mpLocalAnswers=[],mpLocalWrong=0,mpLocalQScore=0;
+let mpQNum=0;
+const MP_TQ=10,MP_TIMER=30*60;
+
+function mpStopAll(){mpStopPoll();mpStopTimer();}
+function mpStopPoll(){if(mpPollInt){clearInterval(mpPollInt);mpPollInt=null;}}
+function mpStopTimer(){if(mpTimerInt){clearInterval(mpTimerInt);mpTimerInt=null;}}
+function setMpErr(msg){document.getElementById('mpErrMsg').textContent=msg;}
+
+function genCode(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s=''; for(let i=0;i<5;i++)s+=c[Math.floor(Math.random()*c.length)]; return s;
+}
+
+// CREATE ROOM
+document.getElementById('mpCreateBtn').addEventListener('click',async()=>{
+  mpMyName=document.getElementById('mpName').value.trim();
+  if(!mpMyName){showToast('⚠️ Masukkan namamu dulu!','wrong');return;}
+  const btn=document.getElementById('mpCreateBtn');
+  btn.disabled=true; btn.textContent='⏳ Membuat...'; setMpErr('');
+  try{
+    mpRoomId=genCode(); mpIsHost=true; mpMySlot='player1'; mpOpSlot='player2';
+    await sbInsert({
+      id:mpRoomId, player1_id:myId, player1_name:mpMyName,
+      player1_score:0, player2_score:0,
+      status:'waiting', question_number:0, current_question:null
+    });
+    document.getElementById('mpDisplayCode').textContent=mpRoomId;
+    document.getElementById('mpWaitName1').textContent=mpMyName;
+    showScreen('screenMPWait');
+    mpStartWaitPoll();
+  }catch(e){
+    console.error('create room error:',e);
+    setMpErr('❌ Gagal buat room: '+e.message);
+    showToast('❌ Gagal buat room!','wrong');
+  }
+  btn.disabled=false; btn.textContent='🏠 BUAT ROOM';
+});
+
+// JOIN ROOM — fix: scan semua rooms, match case-insensitive
+document.getElementById('mpJoinBtn').addEventListener('click',async()=>{
+  mpMyName=document.getElementById('mpName').value.trim();
+  const rawCode=document.getElementById('mpCodeInput').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!mpMyName){showToast('⚠️ Masukkan namamu dulu!','wrong');return;}
+  if(rawCode.length<3){showToast('⚠️ Kode room minimal 3 karakter!','wrong');return;}
+  const btn=document.getElementById('mpJoinBtn');
+  btn.disabled=true; btn.textContent='⏳ Mencari...'; setMpErr('');
+  try{
+    // Coba exact dulu
+    let room=await sbGet(rawCode);
+
+    // Kalau tidak ketemu, scan semua & match manual (handles edge cases)
+    if(!room){
+      const all=await sbGetAll();
+      const match=all.find(r=>r.id&&r.id.toUpperCase()===rawCode);
+      if(match) room=await sbGet(match.id);
+    }
+
+    if(!room){
+      setMpErr('❌ Room "'+rawCode+'" tidak ditemukan. Cek kembali kode dari temanmu.');
+      btn.disabled=false; btn.textContent='🚪 GABUNG ROOM'; return;
+    }
+    if(room.status==='finished'){
+      setMpErr('❌ Room sudah selesai bermain.');
+      btn.disabled=false; btn.textContent='🚪 GABUNG ROOM'; return;
+    }
+    if(room.status==='playing'){
+      setMpErr('❌ Room sedang dalam permainan, tidak bisa gabung.');
+      btn.disabled=false; btn.textContent='🚪 GABUNG ROOM'; return;
+    }
+    if(room.player2_id){
+      setMpErr('❌ Room sudah penuh (2/2 pemain).');
+      btn.disabled=false; btn.textContent='🚪 GABUNG ROOM'; return;
+    }
+    // OK, gabung!
+    mpRoomId=room.id; mpIsHost=false; mpMySlot='player2'; mpOpSlot='player1';
+    await sbUpdate(mpRoomId,{player2_id:myId,player2_name:mpMyName,status:'ready'});
+    setMpErr('');
+    showScreen('screenMPLoad');
+    document.getElementById('mpLoadText').textContent='✅ Masuk room '+mpRoomId+'! Menunggu host memulai game...';
+    mpLastRoom=null;
+    mpStartGamePoll();
+  }catch(e){
+    console.error('join error:',e);
+    setMpErr('❌ Error: '+e.message);
+    showToast('❌ Gagal gabung!','wrong',4000);
+  }
+  btn.disabled=false; btn.textContent='🚪 GABUNG ROOM';
+});
+
+document.getElementById('mpCodeInput').addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').substr(0,5);});
+document.getElementById('mpCopyBtn').addEventListener('click',()=>{
+  if(navigator.clipboard){navigator.clipboard.writeText(mpRoomId).then(()=>showToast('📋 Kode "'+mpRoomId+'" disalin!','info'));}
+  else showToast('Kode: '+mpRoomId,'info',5000);
+});
+
+async function cancelAndLeave(){
+  mpStopAll();
+  if(mpRoomId&&mpIsHost){try{await sbDelete(mpRoomId);}catch(e){}}
+  mpRoomId=''; mpIsHost=false; mpMySlot=''; mpOpSlot='';
+  showScreen('screenMPLobby');
+}
+
+function mpStartWaitPoll(){
+  mpStopPoll();
+  mpPollInt=setInterval(async()=>{
+    try{
+      const room=await sbGet(mpRoomId); if(!room)return;
+      if(room.status==='ready'&&room.player2_name){
+        mpStopPoll();
+        const c2=document.getElementById('mpWaitCard2');
+        c2.classList.remove('empty-card');
+        c2.querySelector('.player-name-w').textContent=room.player2_name;
+        c2.querySelector('.status-pill').className='status-pill online';
+        c2.querySelector('.status-pill').innerHTML='<span class="live-dot"></span> SIAP';
+        showToast('🎉 '+room.player2_name+' bergabung!','correct'); playLevelUp();
+        setTimeout(()=>mpHostStart(room),1500);
+      }
+    }catch(e){console.error('wait poll:',e);}
+  },1500);
+}
+
+async function mpHostStart(room){
+  mpQNum=0; usedCats=[];
+  showScreen('screenMPLoad');
+  document.getElementById('mpLoadText').textContent='Memuat pertanyaan pertama...';
+  await mpLoadNext(room);
+}
+
+function mpStartGamePoll(){
+  mpStopPoll();
+  mpPollInt=setInterval(async()=>{
+    try{const room=await sbGet(mpRoomId);if(room)await mpSync(room);}catch(e){console.error('game poll:',e);}
+  },1200);
+}
+
+async function mpSync(room){
+  const newQN=room.question_number||0;
+  const prevQN=mpLastRoom?(mpLastRoom.question_number||0):-1;
+  if(newQN>prevQN&&room.current_question&&room.status==='playing'){mpLastRoom=room;mpQNum=newQN;mpLoadFromRoom(room);return;}
+  if(room.status==='finished'){mpStopAll();mpShowResult(room);return;}
+  if(!mpLastRoom){mpLastRoom=room;return;}
+  if(room.current_question&&mpLocalAnswers.length){
+    room.current_question.answers.forEach((a,i)=>{if(a.revealed&&!mpLocalAnswers[i].revealed){mpLocalAnswers[i].revealed=true;mpRevealUI(i);}});
+  }
+  mpRenderScorebar(room);
+  if(room.current_question&&room.current_question.ended&&!mpQEnded){mpQEnded=true;mpStopTimer();mpOnQEnd(room);}
+  if(room.current_question)mpSyncTurn(room);
+  mpLastRoom=room;
+}
+
+async function mpLoadNext(room){
+  mpQEnded=false; mpLocalAnswers=[]; mpLocalWrong=0; mpLocalQScore=0;
+  if(mpIsHost){
+    mpQNum++;
+    showScreen('screenMPLoad');
+    document.getElementById('mpLoadText').textContent=['Memuat soal baru...','AI sedang berpikir...','Menyiapkan soal seru...'][Math.floor(Math.random()*3)];
+    try{
+      const q=await generateQuestion();
+      const qd={question:q.question,hint:q.hint,answers:q.answers.map(a=>({...a,revealed:false})),ended:false,turn:'player1',p1_wrong:0,p2_wrong:0,p1_q_score:0,p2_q_score:0};
+      await sbUpdate(mpRoomId,{current_question:qd,question_number:mpQNum,status:'playing'});
+    }catch(e){console.error('mpLoad:',e);document.getElementById('mpLoadText').innerHTML='⚠️ Gagal: '+( e.message||'unknown error')+'<br><br><button onclick="mpRetryLoad()" style="background:linear-gradient(135deg,#FFD700,#FFA500);border:none;border-radius:10px;padding:10px 24px;font-family:Bebas Neue,sans-serif;font-size:16px;cursor:pointer;color:#000">🔄 COBA LAGI</button>';return;}
+  }
+  if(!mpIsHost)mpStartGamePoll();
+}
+
+function mpLoadFromRoom(room){
+  const q=room.current_question;
+  mpQEnded=false;
+  mpLocalAnswers=q.answers.map(a=>({...a}));
+  mpLocalWrong=mpMySlot==='player1'?(q.p1_wrong||0):(q.p2_wrong||0);
+  mpLocalQScore=mpMySlot==='player1'?(q.p1_q_score||0):(q.p2_q_score||0);
+  document.getElementById('mpQNum').textContent=`Pertanyaan #${mpQNum} dari ${MP_TQ}`;
+  document.getElementById('mpQText').textContent=q.question;
+  document.getElementById('mpQMeta').innerHTML=`<span class="hint-chip">💡 Tema: ${q.hint}</span>`;
+  mpBuildBoard(); mpRenderScorebar(room); mpSyncTurn(room); mpUpdateWrong(); mpUpdateProgress();
+  mpEnableInput(); document.getElementById('mpNext').style.display='none'; document.getElementById('mpOpStatus').textContent='';
+  showScreen('screenMPGame'); mpStartTimer();
+  if(mpIsHost)mpStartGamePoll();
+  const myTurn=q.turn===mpMySlot;
+  if(myTurn){showToast('🎯 Giliran KAMU!','correct',2000);document.getElementById('mpInput').focus();}
+  else showToast('⏳ Giliran LAWAN dulu...','info',2000);
+}
+
+function mpBuildBoard(){
+  const b=document.getElementById('mpBoard'); b.innerHTML='';
+  mpLocalAnswers.forEach((a,i)=>{
+    const s=document.createElement('div');
+    s.className='answer-slot'+(a.revealed?' revealed':'');
+    s.id='ms'+i;
+    s.innerHTML=`<div class="slot-num">${i+1}</div><div class="slot-content">${a.revealed?`<div class="slot-answer">${a.text}</div>`:'<div class="slot-hidden-text">??? ??? ???</div>'}</div><div class="slot-points">${a.points}</div>`;
+    b.appendChild(s);
+  });
+}
+
+function mpRevealUI(i,missed=false){
+  const s=document.getElementById('ms'+i); if(!s)return;
+  if(missed){
+    s.classList.add('missed');
+    s.querySelector('.slot-content').innerHTML=`<div class="slot-answer missed-text">${mpLocalAnswers[i].text} (hangus)</div>`;
+    const p=s.querySelector('.slot-points'); p.textContent='0'; p.classList.add('missed-pts');
+  }else{
+    s.classList.add('revealed');
+    s.querySelector('.slot-content').innerHTML=`<div class="slot-answer">${mpLocalAnswers[i].text}</div>`;
+    s.querySelector('.slot-points').style.opacity='1';
+  }
+}
+
+function mpRenderScorebar(room){
+  const p1=room.player1_name||'P1',p2=room.player2_name||'P2';
+  const s1=room.player1_score||0,s2=room.player2_score||0;
+  document.getElementById('mpSbName1').textContent=mpMySlot==='player1'?p1+' (Kamu)':p1;
+  document.getElementById('mpSbName2').textContent=mpMySlot==='player2'?p2+' (Kamu)':p2;
+  document.getElementById('mpSbScore1').textContent=s1;
+  document.getElementById('mpSbScore2').textContent=s2;
+  document.getElementById('mpSbQ').textContent='SOAL '+mpQNum+'/'+MP_TQ;
+}
+
+function mpSyncTurn(room){
+  const q=room.current_question; if(!q)return;
+  const myTurn=q.turn===mpMySlot;
+  const tn=q.turn==='player1'?room.player1_name:room.player2_name;
+  const el=document.getElementById('mpTurnName');
+  el.textContent=myTurn?'🎯 KAMU':'⏳ '+tn;
+  el.className='turn-name '+(myTurn?'my-turn':'their-turn');
+  document.getElementById('mpBlocked').style.display=myTurn?'none':'flex';
+  document.getElementById('mpInput').disabled=!myTurn||mpQEnded;
+  document.getElementById('mpSend').disabled=!myTurn||mpQEnded;
+}
+
+function mpUpdateWrong(){for(let i=1;i<=3;i++)document.getElementById('mx'+i).classList.toggle('active',i<=mpLocalWrong);}
+function mpUpdateProgress(){document.getElementById('mpProgress').style.width=((mpQNum-1)/MP_TQ*100)+'%';}
+function mpEnableInput(){document.getElementById('mpInput').disabled=false;document.getElementById('mpSend').disabled=false;document.getElementById('mpInput').value='';document.getElementById('mpBlocked').style.display='none';}
+function mpDisableInput(){document.getElementById('mpInput').disabled=true;document.getElementById('mpSend').disabled=true;}
+
+function mpStartTimer(){
+  mpStopTimer(); mpTimerSec=MP_TIMER; mpUpdateTimerDisplay();
+  mpTimerInt=setInterval(async()=>{
+    mpTimerSec--; mpUpdateTimerDisplay();
+    if(mpTimerSec<=60&&mpTimerSec%10===0)playWarn();
+    if(mpTimerSec<=0){mpStopTimer();await mpTimerExpire();}
+  },1000);
+}
+function mpUpdateTimerDisplay(){
+  const m=Math.floor(mpTimerSec/60),s=mpTimerSec%60;
+  const el=document.getElementById('mpTimerVal');
+  el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  el.className='timer-val'+(mpTimerSec<=60?' urgent':'');
+}
+
+async function mpTimerExpire(){
+  if(mpQEnded)return; mpQEnded=true; mpDisableInput();
+  showToast('⏰ Waktu Habis!','wrong',3500); playWrong();
+  mpLocalAnswers.forEach((a,i)=>{if(!a.revealed)setTimeout(()=>mpRevealUI(i,true),i*150);});
+  if(mpIsHost){
+    try{
+      const room=await sbGet(mpRoomId); if(!room)return;
+      const updQ={...room.current_question,ended:true};
+      const p1s=(room.player1_score||0)+(updQ.p1_q_score||0);
+      const p2s=(room.player2_score||0)+(updQ.p2_q_score||0);
+      await sbUpdate(mpRoomId,{current_question:updQ,player1_score:p1s,player2_score:p2s});
+      mpOnQEnd({...room,player1_score:p1s,player2_score:p2s,current_question:updQ});
+    }catch(e){console.error(e);}
+  }
+}
+
+async function mpHandleAnswer(){
+  if(mpQEnded)return;
+  const inp=document.getElementById('mpInput').value.trim(); if(!inp)return;
+  document.getElementById('mpInput').value='';
+  try{
+    const room=await sbGet(mpRoomId); if(!room||!room.current_question)return;
+    if(room.current_question.turn!==mpMySlot){showToast('⚠️ Bukan giliran kamu!','wrong');return;}
+    const idx=checkAns(inp,mpLocalAnswers);
+    if(idx!==-1){
+      const pts=mpLocalAnswers[idx].points; mpLocalQScore+=pts;
+      mpLocalAnswers[idx].revealed=true; mpRevealUI(idx); playCorrect();
+      showToast('🎉 BENAR! +'+pts+' poin','correct');
+      const allDone=mpLocalAnswers.every(a=>a.revealed);
+      const qsk=mpMySlot==='player1'?'p1_q_score':'p2_q_score';
+      const updQ={...room.current_question,answers:mpLocalAnswers.map(a=>({...a})),[qsk]:mpLocalQScore,ended:allDone};
+      if(allDone){
+        mpStopTimer(); mpQEnded=true; mpDisableInput(); playLevelUp();
+        showToast('🏆 Semua terbuka!','correct',2500);
+        const p1s=(room.player1_score||0)+(updQ.p1_q_score||0);
+        const p2s=(room.player2_score||0)+(updQ.p2_q_score||0);
+        await sbUpdate(mpRoomId,{current_question:updQ,player1_score:p1s,player2_score:p2s});
+        mpOnQEnd({...room,player1_score:p1s,player2_score:p2s,current_question:updQ});
+      }else{await sbUpdate(mpRoomId,{current_question:updQ});}
+    }else{
+      mpLocalWrong++; mpUpdateWrong(); playWrong();
+      showToast(['❌ Bukan itu!','🚫 Survei tidak setuju!','❌ Salah!','🔴 Coba lagi...'][Math.floor(Math.random()*4)],'wrong');
+      const wk=mpMySlot==='player1'?'p1_wrong':'p2_wrong';
+      if(mpLocalWrong>=3){
+        showToast('💀 3 Kesalahan! Giliran lawan!','wrong',3000);
+        mpLocalWrong=0; mpUpdateWrong();
+        const nextTurn=mpMySlot==='player1'?'player2':'player1';
+        const owk=mpMySlot==='player1'?'p2_wrong':'p1_wrong';
+        const opWrong=room.current_question[owk]||0;
+        const updQ={...room.current_question,[wk]:3,turn:nextTurn};
+        if(opWrong>=3){
+          updQ.ended=true; mpStopTimer(); mpQEnded=true; mpDisableInput();
+          const p1s=(room.player1_score||0)+(updQ.p1_q_score||0);
+          const p2s=(room.player2_score||0)+(updQ.p2_q_score||0);
+          await sbUpdate(mpRoomId,{current_question:updQ,player1_score:p1s,player2_score:p2s});
+          mpLocalAnswers.forEach((a,i)=>{if(!a.revealed)setTimeout(()=>mpRevealUI(i),i*150);});
+          mpOnQEnd({...room,player1_score:p1s,player2_score:p2s,current_question:updQ});
+        }else{await sbUpdate(mpRoomId,{current_question:updQ});showToast('⚡ Giliran lawan!','info',2000);}
+      }else{await sbUpdate(mpRoomId,{current_question:{...room.current_question,[wk]:mpLocalWrong}});}
+    }
+  }catch(e){console.error('handleAnswer:',e);}
+}
+
+function mpOnQEnd(room){
+  mpQEnded=true; mpStopTimer(); mpDisableInput();
+  mpLocalAnswers.forEach((a,i)=>{if(!a.revealed)setTimeout(()=>mpRevealUI(i),i*150);});
+  if(mpIsHost){
+    document.getElementById('mpNext').style.display='block';
+    document.getElementById('mpNext').textContent=mpQNum>=MP_TQ?'🏆 Lihat Hasil Akhir ➤':'Soal Berikutnya ➤';
+  }else{document.getElementById('mpOpStatus').textContent='⏳ Menunggu host memuat soal berikutnya...';}
+  mpRenderScorebar(room);
+}
+
+document.getElementById('mpNext').addEventListener('click',async()=>{
+  if(!mpIsHost)return;
+  document.getElementById('mpNext').style.display='none';
+  document.getElementById('mpOpStatus').textContent='';
+  if(mpQNum>=MP_TQ){await sbUpdate(mpRoomId,{status:'finished'});const room=await sbGet(mpRoomId);mpShowResult(room);}
+  else{const room=await sbGet(mpRoomId);await mpLoadNext(room);}
+});
+
+function mpShowResult(room){
+  mpStopAll();
+  const p1=room.player1_name||'P1',p2=room.player2_name||'P2';
+  const s1=room.player1_score||0,s2=room.player2_score||0;
+  const myN=mpMySlot==='player1'?p1:p2,opN=mpMySlot==='player1'?p2:p1;
+  const myS=mpMySlot==='player1'?s1:s2,opS=mpMySlot==='player1'?s2:s1;
+  const iWin=myS>opS,isDraw=myS===opS;
+  document.getElementById('mpResultCrown').textContent=isDraw?'🤝':iWin?'🏆':'😔';
+  document.getElementById('mpResultTitle').textContent=isDraw?'SERI!':iWin?'KAMU MENANG!':'LAWAN MENANG!';
+  const myC=isDraw?'draw':iWin?'winner':'loser',opC=isDraw?'draw':iWin?'loser':'winner';
+  document.getElementById('mpResultCards').innerHTML=`
+    <div class="result-card ${myC}"><div class="rc-crown">${isDraw?'🤝':iWin?'🥇':'🥈'}</div><div class="rc-name">${myN} (Kamu)</div><div class="rc-score">${myS}</div><div class="rc-label">${iWin&&!isDraw?'🏆 PEMENANG':isDraw?'SERI':'KALAH'}</div></div>
+    <div class="result-card ${opC}"><div class="rc-crown">${isDraw?'🤝':iWin?'🥈':'🥇'}</div><div class="rc-name">${opN}</div><div class="rc-score">${opS}</div><div class="rc-label">${!iWin&&!isDraw?'🏆 PEMENANG':isDraw?'SERI':'KALAH'}</div></div>`;
+  showScreen('screenMPResult'); playLevelUp();
+}
+
+document.getElementById('mpSend').addEventListener('click',mpHandleAnswer);
+document.getElementById('mpInput').addEventListener('keydown',e=>{if(e.key==='Enter')mpHandleAnswer();});
+
+document.getElementById('mpPlayAgain').addEventListener('click',async()=>{
+  mpStopAll();
+  if(mpIsHost){
+    try{
+      await sbUpdate(mpRoomId,{player1_score:0,player2_score:0,question_number:0,current_question:null,status:'waiting',player2_id:null,player2_name:null});
+      document.getElementById('mpDisplayCode').textContent=mpRoomId;
+      document.getElementById('mpWaitName1').textContent=mpMyName;
+      const c2=document.getElementById('mpWaitCard2');
+      c2.classList.add('empty-card');
+      c2.querySelector('.player-name-w').textContent='Menunggu...';
+      c2.querySelector('.status-pill').className='status-pill waiting-p';
+      c2.querySelector('.status-pill').innerHTML='<span class="live-dot"></span> BELUM JOIN';
+      usedCats=[]; showScreen('screenMPWait'); mpStartWaitPoll();
+    }catch(e){console.error(e);}
+  }else showScreen('screenMPLobby');
+});
+
+document.getElementById('mpGoMenu').addEventListener('click',async()=>{
+  mpStopAll();
+  if(mpIsHost&&mpRoomId){try{await sbDelete(mpRoomId);}catch(e){}}
+  mpRoomId=''; mpIsHost=false; mpMySlot=''; mpOpSlot='';
+  showScreen('screenMode');
+});
+
+
+// Retry helper for mp load
+let _mpRetryRoom = null;
+async function mpRetryLoad(){
+  const room = _mpRetryRoom || await sbGet(mpRoomId);
+  await mpLoadNext(room);
+}
+window.addEventListener('beforeunload',()=>{
+  mpStopAll();
+  if(mpIsHost&&mpRoomId){try{sbDelete(mpRoomId);}catch(e){}}
+});
+</script>
+</body>
+</html>
